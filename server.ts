@@ -32,7 +32,10 @@ const HOST = "tuitercluster.szy5h.mongodb.net";
 const DB_NAME = "tuiter";
 const DB_QUERY = "retryWrites=true&w=majority";
 const connectionString = `${PROTOCOL}://${DB_USERNAME}:${DB_PASSWORD}@${HOST}/${DB_NAME}?${DB_QUERY}`;// connect to the database
-mongoose.connect(connectionString);
+mongoose.connect(connectionString, function(error){
+    if(error) console.log(error);
+        console.log('connection successful');
+    });
 
 const app = express();
 app.use(cors({
