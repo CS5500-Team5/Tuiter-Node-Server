@@ -40,7 +40,9 @@ import PollOption from "../models/polls/PollOption";
         .exec();
         
     findPollByTuit = async (tid: string): Promise<any> => 
-        TuitModel.find({_id: tid}).exec();
+        TuitModel.find({_id: tid})
+        .populate("postedBy")
+        .populate("pollOptions").exec();
     
     createPollOption = async (tid: string, option: PollOption): Promise<any> =>
     //PollOptionModel.create({...option, tuit: tid});
