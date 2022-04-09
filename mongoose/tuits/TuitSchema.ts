@@ -12,6 +12,9 @@ const TuitSchema = new mongoose.Schema<Tuit>({
         replies: {type: Number, default: 0},
         retuits: {type: Number, default: 0},
         likes: {type: Number, default: 0}
-    }
+    },
+    isPoll: {type: Boolean, default: false},
+    pollStats: {type: Schema.Types.ObjectId, ref: "PollStatsModel"},
+    pollOptions: [{type: Schema.Types.ObjectId, ref: "PollOptionModel"}]
 }, {collection: "tuits"});
 export default TuitSchema;
