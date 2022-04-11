@@ -1,5 +1,5 @@
 /**
- * @file Implements DAO managing data storage of tuits. Uses mongoose TuitModel
+ * @file Implements DAO managing data storage of polls. Uses mongoose TuitModel
  * to integrate with MongoDB
  */
  import TuitModel from "../mongoose/tuits/TuitModel";
@@ -9,9 +9,9 @@ import PollOptionModel from "../mongoose/polls/PollOptionModel";
 import PollOption from "../models/polls/PollOption";
  
  /**
-  * @class UserDao Implements Data Access Object managing data storage
+  * @class PollDao Implements Data Access Object managing data storage
   * of Users
-  * @property {UserDao} userDao Private single instance of UserDao
+  * @property {PollDao} pollDao Private single instance of PollDao
   */
  export default class PollDao implements PollDaoI{
      private static pollDao: PollDao | null = null;
@@ -47,7 +47,7 @@ import PollOption from "../models/polls/PollOption";
     createPollOption = async (tid: string, option: PollOption): Promise<any> =>
     //PollOptionModel.create({...option, tuit: tid});
         PollOptionModel.create(option).then((option) => {
-            console.log(option);
+            //console.log(option);
             return TuitModel.findOneAndUpdate(
                 {
                     _id: tid
@@ -65,7 +65,7 @@ import PollOption from "../models/polls/PollOption";
 
     createPollByUser = async (uid: string, tuit: Tuit): Promise<Tuit> =>
          TuitModel.create({...tuit, postedBy: uid});
-     updateTuit = async (tid: string, tuit: Tuit): Promise<any> =>
+     updatePoll = async (tid: string, tuit: Tuit): Promise<any> =>
          TuitModel.updateOne(
              {_id: tid},
              {$set: tuit});
@@ -74,6 +74,6 @@ import PollOption from "../models/polls/PollOption";
              {_id: tid},
              {$set: {stats: newStats}}
          );
-     deleteTuit = async (uid: string): Promise<any> =>
-         TuitModel.deleteOne({_id: uid});
+     deletePoll = async (uid: string): Promise<any> =>
+        PollOptionModel.deleteMany({tuit: uid}).then((res) => TuitModel.deleteOne({_id: uid}));
  }

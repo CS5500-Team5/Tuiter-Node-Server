@@ -1,5 +1,5 @@
 /**
- * @file Controller RESTful Web service API for tuits resource
+ * @file Controller RESTful Web service API for polls resource
  */
  import TuitDao from "../daos/TuitDao";
  import Tuit from "../models/tuits/Tuit";
@@ -9,16 +9,18 @@ import PollControllerI from "../interfaces/PollControllerI";
 import PollDao from "../daos/PollDao";
  
  /**
-  * @class TuitController Implements RESTful Web service API for tuits resource.
+  * @class PollController Implements RESTful Web service API for poll resource.
   * Defines the following HTTP endpoints:
   * <ul>
-  *     <li>POST /api/users/:uid/tuits to create a new tuit instance for
+  *     <li>POST /api/users/:uid/polls to create a new poll instance for
   *     a given user</li>
-  *     <li>GET /api/tuits to retrieve all the tuit instances</li>
-  *     <li>GET /api/tuits/:tid to retrieve a particular tuit instances</li>
-  *     <li>GET /api/users/:uid/tuits to retrieve tuits for a given user </li>
-  *     <li>PUT /api/tuits/:tid to modify an individual tuit instance </li>
-  *     <li>DELETE /api/tuits/:tid to remove a particular tuit instance</li>
+  *     <li>POST /api/users/:uid/polls/:tid/option to create a new poll option for
+  *     a previously created poll by a given user</li>
+  *     <li>GET /api/polls to retrieve all the poll instances</li>
+  *     <li>GET /api/polls/:tid to retrieve a particular poll instances</li>
+  *     <li>GET /api/users/:uid/polls to retrieve polls for a given user </li>
+  *     <li>PUT /api/polls/:tid to modify an individual poll instance </li>
+  *     <li>DELETE /api/polls/:tid to remove a particular tuit instance</li>
   * </ul>
   * @property {TuitDao} tuitDao Singleton DAO implementing tuit CRUD operations
   * @property {TuitController} tuitController Singleton controller implementing
@@ -39,8 +41,8 @@ import PollDao from "../daos/PollDao";
             PollController.pollController = new PollController();
              app.get("/api/polls", PollController.pollController.findAllPolls);
              app.get("/api/users/:uid/polls", PollController.pollController.findAllPollsByUser);
-             app.get("/api/poll/:uid", PollController.pollController.findPollById);
-             app.post("/api/users/:uid/poll", PollController.pollController.createPoll);
+             app.get("/api/polls/:uid", PollController.pollController.findPollById);
+             app.post("/api/users/:uid/polls", PollController.pollController.createPoll);
              app.post("/api/users/:uid/polls/:tid/option", PollController.pollController.createPollOption);
              app.put("/api/polls/:uid", PollController.pollController.updatePoll);
              app.delete("/api/polls/:uid", PollController.pollController.deletePoll);
@@ -124,7 +126,7 @@ import PollDao from "../daos/PollDao";
       * on whether updating a tuit was successful or not
       */
      updatePoll = (req: Request, res: Response) =>
-         PollController.pollDao.updateTuit(req.params.uid, req.body)
+         PollController.pollDao.updatePoll(req.params.uid, req.body)
              .then((status) => res.send(status));
  
      /**
@@ -134,7 +136,7 @@ import PollDao from "../daos/PollDao";
       * on whether deleting a user was successful or not
       */
      deletePoll = (req: Request, res: Response) =>
-         PollController.pollDao.deleteTuit(req.params.uid)
+         PollController.pollDao.deletePoll(req.params.uid)
              .then((status) => res.send(status));
  };
  
