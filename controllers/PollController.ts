@@ -34,7 +34,7 @@ import PollDao from "../daos/PollDao";
       * Creates singleton controller instance
       * @param {Express} app Express instance to declare the RESTful Web service
       * API
-      * @return TuitController
+      * @return PollController
       */
      public static getInstance = (app: Express): PollController => {
          if(PollController.pollController === null) {
@@ -53,10 +53,10 @@ import PollDao from "../daos/PollDao";
      private constructor() {}
  
      /**
-      * Retrieves all tuits from the database and returns an array of tuits.
+      * Retrieves all polls from the database and returns an array of polls.
       * @param {Request} req Represents request from client
       * @param {Response} res Represents response to client, including the
-      * body formatted as JSON arrays containing the tuit objects
+      * body formatted as JSON arrays containing the poll objects
       */
      findAllPolls = (req: Request, res: Response) =>
          PollController.pollDao.findAllPolls()
@@ -64,17 +64,17 @@ import PollDao from "../daos/PollDao";
      
      /**
       * @param {Request} req Represents request from client, including path
-      * parameter tid identifying the primary key of the tuit to be retrieved
+      * parameter tid identifying the primary key of the poll to be retrieved
       * @param {Response} res Represents response to client, including the
-      * body formatted as JSON containing the tuit that matches the user ID
+      * body formatted as JSON containing the poll that matches the user ID
       */
      findPollById = (req: Request, res: Response) =>
          PollController.pollDao.findPollById(req.params.uid)
              .then((tuit: Tuit) => res.json(tuit));
  
      /**
-      * Retrieves all tuits from the database for a particular user and returns
-      * an array of tuits.
+      * Retrieves all poll from the database for a particular user and returns
+      * an array of poll.
       * @param {Request} req Represents request from client
       * @param {Response} res Represents response to client, including the
       * body formatted as JSON arrays containing the tuit objects
@@ -99,10 +99,10 @@ import PollDao from "../daos/PollDao";
  
      /**
       * @param {Request} req Represents request from client, including body
-      * containing the JSON object for the new tuit to be inserted in the
+      * containing the JSON object for the new poll to be inserted in the
       * database
       * @param {Response} res Represents response to client, including the
-      * body formatted as JSON containing the new tuit that was inserted in the
+      * body formatted as JSON containing the new poll that was inserted in the
       * database
       */
      createPoll = (req: Request, res: Response) => {
@@ -121,9 +121,9 @@ import PollDao from "../daos/PollDao";
  
      /**
       * @param {Request} req Represents request from client, including path
-      * parameter tid identifying the primary key of the tuit to be modified
+      * parameter tid identifying the primary key of the poll to be modified
       * @param {Response} res Represents response to client, including status
-      * on whether updating a tuit was successful or not
+      * on whether updating a poll was successful or not
       */
      updatePoll = (req: Request, res: Response) =>
          PollController.pollDao.updatePoll(req.params.uid, req.body)
@@ -131,9 +131,9 @@ import PollDao from "../daos/PollDao";
  
      /**
       * @param {Request} req Represents request from client, including path
-      * parameter tid identifying the primary key of the tuit to be removed
+      * parameter tid identifying the primary key of the poll to be removed
       * @param {Response} res Represents response to client, including status
-      * on whether deleting a user was successful or not
+      * on whether deleting a poll was successful or not
       */
      deletePoll = (req: Request, res: Response) =>
          PollController.pollDao.deletePoll(req.params.uid)
