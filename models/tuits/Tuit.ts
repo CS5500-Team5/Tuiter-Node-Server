@@ -12,7 +12,8 @@ export default interface Tuit {
     avatarLogo?: String,
     imageOverlay?: String,
     stats: Stats,
-    isPoll: Boolean,
+    isPoll?: Boolean,
+    isPollOpen?: Boolean,
     pollStats?: PollStats,
     pollOptions: [PollOption]
 };
