@@ -19,6 +19,8 @@ import SessionController from "./controllers/SessionController";
 import AuthenticationController from "./controllers/AuthenticationController";
 import mongoose from "mongoose";
 import GroupController from "./controllers/GroupController";
+import VoteController from "./controllers/VoteController";
+import PollController from "./controllers/PollController";
 const cors = require("cors");
 const session = require("express-session");
 
@@ -28,8 +30,8 @@ require('dotenv').config();
 const PROTOCOL = "mongodb+srv";
 const DB_USERNAME = process.env.DB_USERNAME;
 const DB_PASSWORD = process.env.DB_PASSWORD;
-const HOST = "tuitercluster.szy5h.mongodb.net";
-const DB_NAME = "tuiter";
+const HOST = process.env.HOST;
+const DB_NAME = process.env.DB_NAME;
 const DB_QUERY = "retryWrites=true&w=majority";
 const connectionString = `${PROTOCOL}://${DB_USERNAME}:${DB_PASSWORD}@${HOST}/${DB_NAME}?${DB_QUERY}`;// connect to the database
 mongoose.connect(connectionString);
@@ -68,6 +70,8 @@ const courseController = new CourseController(app);
 const userController = UserController.getInstance(app);
 const tuitController = TuitController.getInstance(app);
 const likesController = LikeController.getInstance(app);
+const pollsController = PollController.getInstance(app);
+const votesController = VoteController.getInstance(app);
 SessionController(app);
 AuthenticationController(app);
 GroupController(app);

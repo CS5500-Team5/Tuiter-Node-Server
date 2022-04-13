@@ -1,6 +1,7 @@
 import User from "../users/User";
 import Stats from "./Stats";
 import PollStats from "../polls/PollStats";
+import PollOption from "../polls/PollOption";
 
 export default interface Tuit {
     tuit: string,
@@ -11,6 +12,8 @@ export default interface Tuit {
     avatarLogo?: String,
     imageOverlay?: String,
     stats: Stats,
-    isPoll: Boolean,
-    pollStats?: PollStats
+    isPoll?: Boolean,
+    isPollOpen?: Boolean,
+    pollStats?: PollStats,
+    pollOptions: [PollOption]
 };
