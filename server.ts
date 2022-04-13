@@ -19,6 +19,7 @@ import SessionController from "./controllers/SessionController";
 import AuthenticationController from "./controllers/AuthenticationController";
 import mongoose from "mongoose";
 import GroupController from "./controllers/GroupController";
+import PollController from "./controllers/PollController";
 const cors = require("cors");
 const session = require("express-session");
 
@@ -32,7 +33,10 @@ const HOST = "tuitercluster.szy5h.mongodb.net";
 const DB_NAME = "tuiter";
 const DB_QUERY = "retryWrites=true&w=majority";
 const connectionString = `${PROTOCOL}://${DB_USERNAME}:${DB_PASSWORD}@${HOST}/${DB_NAME}?${DB_QUERY}`;// connect to the database
-mongoose.connect(connectionString);
+mongoose.connect(connectionString, function(error){
+    if(error) console.log(error);
+        console.log('connection successful');
+    });
 
 const app = express();
 app.use(cors({
@@ -68,6 +72,7 @@ const courseController = new CourseController(app);
 const userController = UserController.getInstance(app);
 const tuitController = TuitController.getInstance(app);
 const likesController = LikeController.getInstance(app);
+const pollController = PollController.getInstance(app);
 SessionController(app);
 AuthenticationController(app);
 GroupController(app);
