@@ -1,10 +1,10 @@
 /**
  * @file Controller RESTful Web service API for polls resource
  */
- import TuitDao from "../daos/TuitDao";
- import Tuit from "../models/tuits/Tuit";
- import {Express, Request, Response} from "express";
- import TuitControllerI from "../interfaces/TuitControllerI";
+import TuitDao from "../daos/TuitDao";
+import Tuit from "../models/tuits/Tuit";
+import {Express, Request, Response} from "express";
+import TuitControllerI from "../interfaces/TuitControllerI";
 import PollControllerI from "../interfaces/PollControllerI";
 import PollDao from "../daos/PollDao";
  
@@ -139,4 +139,4 @@ import PollDao from "../daos/PollDao";
          PollController.pollDao.deletePoll(req.params.uid)
              .then((status) => res.send(status));
  };
- 
+
