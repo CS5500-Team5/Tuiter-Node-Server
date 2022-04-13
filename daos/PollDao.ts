@@ -2,6 +2,7 @@
  * @file Implements DAO managing data storage of polls. Uses mongoose TuitModel
  * to integrate with MongoDB
  */
+
 import TuitModel from "../mongoose/tuits/TuitModel";
 import Tuit from "../models/tuits/Tuit";
 import PollDaoI from "../interfaces/PollDaoI";
@@ -64,16 +65,17 @@ export default class PollDao implements PollDaoI{
         })
 
     createPollByUser = async (uid: string, tuit: Tuit): Promise<Tuit> =>
-        TuitModel.create({...tuit, postedBy: uid});
-    updatePoll = async (tid: string, tuit: Tuit): Promise<any> =>
-        TuitModel.updateOne(
-            {_id: tid},
-            {$set: tuit});
-    updateLikes = async (tid: string, newStats: any): Promise<any> =>
-        TuitModel.updateOne(
-            {_id: tid},
-            {$set: {stats: newStats}}
-        );
-    deletePoll = async (uid: string): Promise<any> =>
+         TuitModel.create({...tuit, postedBy: uid});
+     updatePoll = async (tid: string, tuit: Tuit): Promise<any> =>
+         TuitModel.updateOne(
+             {_id: tid},
+             {$set: tuit});
+     updateLikes = async (tid: string, newStats: any): Promise<any> =>
+         TuitModel.updateOne(
+             {_id: tid},
+             {$set: {stats: newStats}}
+         );
+     deletePoll = async (uid: string): Promise<any> =>
         PollOptionModel.deleteMany({tuit: uid}).then((res) => TuitModel.deleteOne({_id: uid}));
-}
+ }
+
