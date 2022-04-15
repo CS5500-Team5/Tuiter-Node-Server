@@ -62,9 +62,18 @@ export default class VoteController implements VoteControllerI {
      * @param {Response} res Represents response to client, including the
      * body formatted as JSON containing the vote that matches the user ID and tuit id
      */
-    findVoteByUserOnTuit = (req: Request, res: Response) =>
-        VoteController.voteDao.findVoteByUserOnTuit(req.params.tid, req.params.uid)
+    findVoteByUserOnTuit = (req: Request, res: Response) => {
+        // @ts-ignore
+        let userId = req.params.uid === "my" && req.session['profile'] ?
+            // @ts-ignore
+            req.session['profile']._id : req.params.uid;
+        if (userId === "my") {
+            res.sendStatus(503);
+            return;
+        }
+        VoteController.voteDao.findVoteByUserOnTuit(req.params.tid, userId)
             .then((vote: Vote) => res.json(vote));
+    }
 
     /**
      * @param {Request} req Represents request from client, including body
@@ -105,7 +114,16 @@ export default class VoteController implements VoteControllerI {
      * @param {Response} res Represents response to client, including status
      * on whether deleting a vote was successful or not
      */
-    deleteVote = (req: Request, res: Response) =>
-        VoteController.voteDao.deleteVote(req.params.uid, req.params.tid, req.params.poid)
+    deleteVote = (req: Request, res: Response) => {
+        // @ts-ignore
+        let userId = req.params.uid === "my" && req.session['profile'] ?
+            // @ts-ignore
+            req.session['profile']._id : req.params.uid;
+        if (userId === "my") {
+            res.sendStatus(503);
+            return;
+        }
+        VoteController.voteDao.deleteVote(userId, req.params.tid, req.params.poid)
             .then((status) => res.send(status));
+    }
 };
