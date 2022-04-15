@@ -5,5 +5,5 @@ export default interface VoteDaoI {
     findVoteByUserOnTuit (tid: string, uid: string) : Promise<any>;
     createVote (uid: string, tid: string, poid: string): Promise<Vote>;
     updateVote (vid: string, vote: Vote): Promise<any>;
-    deleteVote (uid: string, tid: string): Promise<any>
+    deleteVote (uid: string, tid: string, poid: string): Promise<any>
 };

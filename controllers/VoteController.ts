@@ -39,7 +39,7 @@ export default class VoteController implements VoteControllerI {
             app.get("/api/votes/:tid/users/:uid", VoteController.voteController.findVoteByUserOnTuit);
             app.post("/api/users/:uid/votes/:tid/:poid", VoteController.voteController.createVote);
             app.put("/api/votes/:vid", VoteController.voteController.updateVote);
-            app.delete("/api/votes/:uid/:tid", VoteController.voteController.deleteVote);
+            app.delete("/api/votes/:uid/:tid/:poid", VoteController.voteController.deleteVote);
         }
         return VoteController.voteController;
     }
@@ -106,6 +106,6 @@ export default class VoteController implements VoteControllerI {
      * on whether deleting a vote was successful or not
      */
     deleteVote = (req: Request, res: Response) =>
-        VoteController.voteDao.deleteVote(req.params.uid, req.params.tid)
+        VoteController.voteDao.deleteVote(req.params.uid, req.params.tid, req.params.poid)
             .then((status) => res.send(status));
 };

@@ -5,6 +5,8 @@
 import VoteModel from "../mongoose/votes/VoteModel";
 import VoteDaoI from "../interfaces/VoteDaoI";
 import Vote from "../models/votes/Vote";
+import PollOptionModel from "../mongoose/polls/PollOptionModel";
+import PollOption from "../models/polls/PollOption";
 
 /**
  * @class PollDao Implements Data Access Object managing data storage
@@ -31,13 +33,19 @@ export default class VoteDao implements VoteDaoI{
             .exec();
 
     createVote = async (uid: string, tid: string, poid: string): Promise<any> =>
-        VoteModel.create({tuit: tid, votedBy: uid, votedOption: poid});
+        PollOptionModel.findOneAndUpdate({_id: poid}, {$inc: {numVoted: 1}}).then(() => {
+            return VoteModel.create(
+                {tuit: tid, votedBy: uid, votedOption: poid})
+        })
 
     updateVote = async (vid: string, vote: Vote): Promise<any> =>
         VoteModel.updateOne(
             {_id: vid},
             {$set: vote});
 
-    deleteVote = async (uid: string, tid: string): Promise<any> =>
-        VoteModel.deleteOne({tuit: tid, votedBy: uid});
+    deleteVote = async (uid: string, tid: string, poid: string): Promise<any> =>
+        PollOptionModel.findOneAndUpdate({_id: poid}, {$inc: {numVoted: -1}}).then(() => {
+            return VoteModel.deleteOne(
+                {tuit: tid, votedBy: uid, votedOption: poid})
+        })
 }
