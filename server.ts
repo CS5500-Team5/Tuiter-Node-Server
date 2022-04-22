@@ -40,9 +40,11 @@ mongoose.connect(connectionString, function(error){
     });
 
 const app = express();
+const whitelist = process.env.CORS_ORIGIN?.split(",").map((a) => a.trim());
+console.log(whitelist)
 app.use(cors({
     credentials: true,
-    origin: process.env.CORS_ORIGIN
+    origin: whitelist
 }));
 
 let sess = {
