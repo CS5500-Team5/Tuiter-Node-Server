@@ -8,6 +8,7 @@ import Tuit from "../models/tuits/Tuit";
 import PollDaoI from "../interfaces/PollDaoI";
 import PollOptionModel from "../mongoose/polls/PollOptionModel";
 import PollOption from "../models/polls/PollOption";
+import VoteModel from "../mongoose/votes/VoteModel";
 
 /**
  * @class PollDao Implements Data Access Object managing data storage
@@ -76,6 +77,8 @@ export default class PollDao implements PollDaoI{
              {$set: {stats: newStats}}
          );
      deletePoll = async (uid: string): Promise<any> =>
-        PollOptionModel.deleteMany({tuit: uid}).then((res) => TuitModel.deleteOne({_id: uid}));
+        VoteModel.deleteMany({tuit: uid})
+        .then((res) => PollOptionModel.deleteMany({tuit: uid}))
+        .then((res) => TuitModel.deleteOne({_id: uid}))
  }
 

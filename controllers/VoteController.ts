@@ -5,6 +5,7 @@ import {Express, Request, Response} from "express";
 import VoteControllerI from "../interfaces/VoteControllerI";
 import VoteDao from "../daos/VoteDao";
 import Vote from "../models/votes/Vote";
+import PollDao from "../daos/PollDao";
 
 /**
  * @class VoteController Implements RESTful Web service API for vote resource.
@@ -25,6 +26,7 @@ import Vote from "../models/votes/Vote";
 export default class VoteController implements VoteControllerI {
     private static voteDao: VoteDao = VoteDao.getInstance();
     private static voteController: VoteController | null = null;
+    private static pollDao: PollDao = PollDao.getInstance();
 
     /**
      * Creates singleton controller instance
@@ -92,9 +94,13 @@ export default class VoteController implements VoteControllerI {
             res.sendStatus(503);
             return;
         }
-
-        VoteController.voteDao.createVote(userId, req.params.tid, req.params.poid)
+        VoteController.pollDao.findPollById(req.params.tid).then((a) => {
+            if(!a.isPollOpen) {
+                return res.sendStatus(400);
+            }
+            return VoteController.voteDao.createVote(userId, req.params.tid, req.params.poid)
             .then((vote: Vote) => res.json(vote));
+        });
     }
 
     /**
