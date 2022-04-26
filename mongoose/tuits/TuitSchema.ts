@@ -1,5 +1,10 @@
+/**
+ * @file Defines the schema for documents in the Tuits collection.
+ */
+
 import mongoose, {Schema} from "mongoose";
 import Tuit from "../../models/tuits/Tuit";
+
 const TuitSchema = new mongoose.Schema<Tuit>({
     tuit: {type: String, required: true},
     postedBy: {type: Schema.Types.ObjectId, ref: "UserModel"},

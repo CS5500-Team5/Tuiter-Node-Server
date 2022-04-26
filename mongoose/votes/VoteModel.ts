@@ -1,7 +1,8 @@
 /**
  * @file Implements mongoose model to CRUD
- * documents in the tuits collection
+ * documents in the Votes collection.
  */
+
 import mongoose from "mongoose";
 import VoteSchema from "./VoteSchema";
 

@@ -1,5 +1,5 @@
 /**
- * @file Controller RESTful Web service API for votes resource
+ * @file Controller RESTful Web service API for Votes resource
  */
 import {Express, Request, Response} from "express";
 import VoteControllerI from "../interfaces/VoteControllerI";
