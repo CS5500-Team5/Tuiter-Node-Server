@@ -24,6 +24,12 @@ export default class LikeDao implements LikeDaoI {
                     path: "postedBy"
                 }
             })
+            .populate({
+                path: "tuit",
+                populate: {
+                    path: "pollOptions"
+                }
+            })
             .exec();
     userLikesTuit = async (uid: string, tid: string): Promise<any> =>
         LikeModel.create({tuit: tid, likedBy: uid});
