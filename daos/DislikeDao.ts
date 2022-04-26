@@ -52,7 +52,7 @@ export default class DislikeDao implements DislikeDaoI {
      */
      findAllTuitsDislikedByUser = async (uid: string): Promise<Dislike[]> =>
         DislikeModel
-            .find({likedBy: uid})
+            .find({dislikedBy: uid})
             .populate("tuit")
             .populate("dislikedBy")
             .exec();
@@ -81,5 +81,5 @@ export default class DislikeDao implements DislikeDaoI {
      * @returns The deletion status
      */
      userUndoDislikes = async (uid: string, tid: string): Promise<any> =>
-        DislikeModel.deleteOne({tuit: tid, likedBy: uid});
+        DislikeModel.deleteOne({tuit: tid, dislikedBy: uid});
 }
