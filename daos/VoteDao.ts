@@ -1,5 +1,5 @@
 /**
- * @file Implements DAO managing data storage of polls. Uses mongoose TuitModel
+ * @file Implements DAO managing data storage of votes. Uses mongoose VoteModel
  * to integrate with MongoDB
  */
 import VoteModel from "../mongoose/votes/VoteModel";
@@ -9,9 +9,9 @@ import PollOptionModel from "../mongoose/polls/PollOptionModel";
 import PollOption from "../models/polls/PollOption";
 
 /**
- * @class PollDao Implements Data Access Object managing data storage
- * of Users
- * @property {PollDao} pollDao Private single instance of PollDao
+ * @class VoteDao Implements Data Access Object managing data storage
+ * of Votes
+ * @property {VoteDao} voteDao Private single instance of VoteDao
  */
 export default class VoteDao implements VoteDaoI{
     private static voteDao: VoteDao | null = null;
