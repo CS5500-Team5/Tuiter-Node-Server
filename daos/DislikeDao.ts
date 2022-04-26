@@ -54,6 +54,12 @@ export default class DislikeDao implements DislikeDaoI {
         DislikeModel
             .find({dislikedBy: uid})
             .populate("tuit")
+            .populate({
+                path: "tuit",
+                populate: {
+                    path: "postedBy"
+                }
+            })
             .populate("dislikedBy")
             .populate({
                 path: "tuit",
