@@ -1,3 +1,6 @@
+/**
+ * @file Defines the schema for documents in the dislikes collection.
+ */
 import mongoose, {Schema} from "mongoose";
 import Dislike from "../../models/dislikes/Dislike";
 

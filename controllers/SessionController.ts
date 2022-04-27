@@ -1,3 +1,6 @@
+/**
+ * @file Controller RESTful Web service API for Session resource
+ */
 import {Request, Response, Express} from "express";
 
 const SessionController = (app: Express) => {

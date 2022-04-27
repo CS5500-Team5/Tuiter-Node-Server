@@ -1,3 +1,6 @@
+/**
+ * @file Defines the schema for documents in the poll stats collection.
+ */
 import mongoose, {Schema} from "mongoose";
 import PollStats from "../../models/polls/PollStats";
 

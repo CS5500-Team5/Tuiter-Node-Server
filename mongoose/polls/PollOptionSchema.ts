@@ -1,3 +1,6 @@
+/**
+ * @file Defines the schema for documents in the poll options collection.
+ */
 import mongoose, {Schema} from "mongoose";
 import PollOption from "../../models/polls/PollOption";
 
